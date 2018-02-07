@@ -15,12 +15,16 @@ class SingleSwitchTopo(Topo):
 		hosts = [ self.addHost('client', ip='10.10.0.2'), self.addHost('server', ip='10.10.0.1')]
 		s1 = self.addSwitch('s1')
 
-		rr = self.addHost('rr', ip='10.10.0.4')
-		mgsw = self.addSwitch('s2')
-		self.addLink(rr, mgsw)
-
 		for h in hosts:
 			self.addLink(h, s1)
+
+		mgsw = self.addSwitch('s66766') #DPID used for the Management switch
+		rr = self.addHost('rr', ip='10.10.0.4') #testing node, primarily testing on host
+		rrtest = self.addHost('rrtest', ip='10.10.0.5') #testing node, within the same mgt switch
+		self.addLink(rr, mgsw)
+		self.addLink(rrtest, mgsw)
+
+
 
 def setup():
 	"Start Network"
@@ -34,9 +38,9 @@ def setup():
 		h.cmd("sysctl -w net.ipv6.conf.default.disable_ipv6=1")
 		h.cmd("sysctl -w net.ipv6.conf.lo.disable_ipv6=1")
 
-	for sw in net.switches:
-		if sw.name == 's2':
-			_intf = Intf('enp0s9', node=sw)
+	# for sw in net.switches:
+	# 	if sw.name == 's66766':
+	# 		_intf = Intf('enp0s9', node=sw)
 
 	net.start()
 	CLI(net)
