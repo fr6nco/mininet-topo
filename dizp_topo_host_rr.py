@@ -23,6 +23,8 @@ class SingleSwitchTopo(Topo):
 
 		mgsw = self.addSwitch('s66766') #DPID used for the Management switch
 
+		self.addLink(mgsw, s2) # connect mgsw to core switch
+
 def setup():
 	"Start Network"
 	topo = SingleSwitchTopo()
