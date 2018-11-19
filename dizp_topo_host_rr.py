@@ -14,16 +14,19 @@ class SingleSwitchTopo(Topo):
 	def build(self):
 		client = self.addHost('client', ip='10.10.0.1') 
 		server = self.addHost('server', ip='10.10.0.2')
+		dns = self.addHost('dns', ip='10.10.0.100')
 		s1 = self.addSwitch('s1')
 		s2 = self.addSwitch('s2')
 
 		self.addLink(client, s1)
 		self.addLink(server, s2)
+		self.addLink(dns, s1)
 		self.addLink(s1, s2)
 
 		mgsw = self.addSwitch('s66766') #DPID used for the Management switch
 
 		self.addLink(mgsw, s2) # connect mgsw to core switch
+		self.addLink(mgsw, s1) # connect mgsw to core switch
 
 def setup():
 	"Start Network"
@@ -36,10 +39,15 @@ def setup():
 		h.cmd("sysctl -w net.ipv6.conf.all.disable_ipv6=1")
 		h.cmd("sysctl -w net.ipv6.conf.default.disable_ipv6=1")
 		h.cmd("sysctl -w net.ipv6.conf.lo.disable_ipv6=1")
+		h.cmd("echo ''")
 
 		if str(h) in ['rr', 'server']:
 			h.cmd('python -m SimpleHTTPServer 80 &')
 			info("Request Router is running a webserver now, You can connect at http://" + h.IP() + "/\n")
+
+		if str(h) in ['dns']:
+			h.cmd('/usr/sbin/named -f -u bind &')
+			info("dns server started on dns node " + h.IP() + "\n")
 
 
 	for sw in net.switches:
