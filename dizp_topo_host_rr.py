@@ -12,9 +12,9 @@ from functools import partial
 class SingleSwitchTopo(Topo):
 	"Single switch topology"
 	def build(self):
-		client = self.addHost('client', ip='10.10.0.1') 
-		server = self.addHost('server', ip='10.10.0.2')
-		dns = self.addHost('dns', ip='10.10.0.100')
+		client = self.addHost('client', ip='10.11.0.1') 
+		server = self.addHost('server', ip='10.11.0.2')
+		dns = self.addHost('dns', ip='10.11.0.100')
 		s1 = self.addSwitch('s1')
 		s2 = self.addSwitch('s2')
 
@@ -32,7 +32,7 @@ def setup():
 	"Start Network"
 	topo = SingleSwitchTopo()
 	OVSSwitch13 = partial(OVSSwitch, protocols='OpenFlow13')
-	net = Mininet(topo=topo, ipBase='10.10.0.0/24', switch=OVSSwitch13, controller=RemoteController('c0', ip='192.168.56.1'), autoSetMacs=True, xterms=False)
+	net = Mininet(topo=topo, ipBase='10.11.0.0/24', switch=OVSSwitch13, controller=RemoteController('c0', ip='192.168.56.1'), autoSetMacs=True, xterms=False)
 
 	for h in net.hosts:
 		info('Disabling IPV6 for ' + str(h) + '\n')
