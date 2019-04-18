@@ -64,7 +64,7 @@ def setup():
     net.stop()
 
 if __name__ == '__main__':
-    # setLogLevel('info')
+    setLogLevel('info')
 
     if len(sys.argv) < 2:
         print "Integer as arguemnt required"
@@ -75,6 +75,6 @@ if __name__ == '__main__':
     except ValueError:
         print "argument must be integer"
 
-    # setup()
+    setup()
 
 
