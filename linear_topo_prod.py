@@ -59,7 +59,7 @@ def setup(count):
                 _intf = Intf('eth1', node=sw)
                 _intf = Intf('eth2', node=sw)
         else:
-            if sw.name == 's%s' % str(int(math.ceil(count / 2))):
+            if sw.name == 's%s' % str(int(math.ceil(count / 2.0))):
                 _intf = Intf('eth1', node=sw)
                 _intf = Intf('eth2', node=sw)
 
