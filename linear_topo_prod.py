@@ -44,22 +44,27 @@ def setup(count):
     net = Mininet(topo=topo, ipBase='10.11.0.0/24', switch=OVSSwitch13, controller=RemoteController('c0', ip='10.9.1.11'), autoSetMacs=True, xterms=False)
 
     for sw in net.switches:
+        print sw.name
         ## Clients
         if sw.name == 's1':
+            print 'attaching clients on eth5 and 6'
             _intf = Intf('eth5', node=sw)
             _intf = Intf('eth6', node=sw)
         
         ## Surrogates
         if sw.name == 's%s' % str(count):
+            print 'attaching surrogates on eth3 and 4'
             _intf = Intf('eth3', node=sw)
             _intf = Intf('eth4', node=sw)
 
         if count % 2 == 0:
             if sw.name == 's%s' % str(int(count / 2)):
+                print 'attaching services on eth1 and 2'
                 _intf = Intf('eth1', node=sw)
                 _intf = Intf('eth2', node=sw)
         else:
             if sw.name == 's%s' % str(int(math.ceil(count / 2.0))):
+                print 'attaching services on eth1 and 2'
                 _intf = Intf('eth1', node=sw)
                 _intf = Intf('eth2', node=sw)
 
