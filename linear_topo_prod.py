@@ -17,7 +17,7 @@ from functools import partial
 
 class CustomLinearTopo(Topo):
 
-    def __init__(switchcount):
+    def __init__(self, switchcount):
         self.switchcount = switchcount
         super(CustomLinearTopo, self).__init__()
 
