@@ -50,12 +50,12 @@ def setup(count):
             _intf = Intf('eth6', node=sw)
         
         ## Surrogates
-        if sw.name == 's%s' % topo.switchcount - 1:
+        if sw.name == 's%s' % str(count - 1):
             _intf = Intf('eth3', node=sw)
             _intf = Intf('eth4', node=sw)
 
         
-        if sw.name == 's%s' % str(math.floor(topo.switchcount)):
+        if sw.name == 's%s' % str(math.floor(count)):
             _intf = Intf('eth1', node=sw)
             _intf = Intf('eth2', node=sw)
 
