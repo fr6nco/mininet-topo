@@ -75,6 +75,6 @@ if __name__ == '__main__':
     except ValueError:
         print "argument must be integer"
 
-    setup(sys.argv[1])
+    setup(int(sys.argv[1]))
 
 
