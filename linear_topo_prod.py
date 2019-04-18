@@ -54,10 +54,15 @@ def setup(count):
             _intf = Intf('eth3', node=sw)
             _intf = Intf('eth4', node=sw)
 
-        
-        if sw.name == 's%s' % str(math.floor(count / 2)):
-            _intf = Intf('eth1', node=sw)
-            _intf = Intf('eth2', node=sw)
+        if count % 2 == 0:
+            if sw.name == 's%s' % str(int(count / 2)):
+                _intf = Intf('eth1', node=sw)
+                _intf = Intf('eth2', node=sw)
+        else:
+            if sw.name == 's%s' % str(int(math.floor(count / 2))):
+                _intf = Intf('eth1', node=sw)
+                _intf = Intf('eth2', node=sw)
+
 
     net.start()
     CLI(net)
