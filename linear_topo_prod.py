@@ -37,9 +37,9 @@ class CustomLinearTopo(Topo):
                 self.addLink( last, switch )
             last = switch
 
-def setup():
+def setup(count):
     "Start Network"
-    topo = CustomLinearTopo()
+    topo = CustomLinearTopo(count)
     OVSSwitch13 = partial(OVSSwitch, protocols='OpenFlow13')
     net = Mininet(topo=topo, ipBase='10.11.0.0/24', switch=OVSSwitch13, controller=RemoteController('c0', ip='10.9.1.11'), autoSetMacs=True, xterms=False)
 
@@ -75,6 +75,6 @@ if __name__ == '__main__':
     except ValueError:
         print "argument must be integer"
 
-    setup()
+    setup(sys.argv[1])
 
 
